@@ -1,0 +1,216 @@
+html {
+    box-sizing: border-box;
+    background-size: 2rem;
+    margin: 0;
+    padding: 0;
+    background-color:  #A5DFF5;
+}
+
+*,
+*:before,
+*:after{
+    box-sizing: inherit;
+}
+
+#root {
+    background-color: #A5DFF5;
+    height: 100%;
+}
+
+#main-menu {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#main-menu__item {
+    list-style: none;
+    margin-right: 3rem;
+}
+
+#main-menu__item {
+    color: rgb(8, 8, 8);
+    text-decoration: none;
+    font-size: 130%;
+    padding: 50px;
+}
+
+#main-menu__item:hover {
+    cursor: pointer;
+    color: black;
+    text-decoration: underline;
+}
+
+#container {
+    background-color: white;
+    max-width: 500px;
+    margin: -50px auto;
+}
+
+
+#Password {
+    background-color: white;
+    max-width: 500px;
+    margin: -50px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#Password > p {
+    font-size: 18px;
+}
+
+#Password > input {
+    width: 280px;
+    height: 50px;
+}
+
+#article header {
+    background-color: black;
+    color: white;
+    min-width :100%;
+	position:absolute;
+	left:0; right:0; top:0;
+    height: 15%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 30px;
+}
+
+#article h2{
+    font-size: 30px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+#description {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+#input{
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+#input #uno{
+    width: 280px;
+    height: 50px;
+}
+
+#input button {
+    text-decoration: none;
+}
+
+#input #dos{
+    margin-top: 20px;
+    width: 280px;
+    height: 50px;
+}
+
+#button  {
+    margin-top: 20px;
+    height: 30px;
+    width: 280px;
+    background-color: gray;
+}
+
+#button:hover{
+    background-color: rgb(88, 88, 88);
+    color: white;
+}
+
+#mainone a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 5%;
+    color: black;
+    text-decoration: none;
+}
+
+#mainone p:hover{
+    text-decoration-line: underline;
+    cursor: pointer;
+    color: rgb(189, 4, 189);
+}
+
+
+#Description {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(1, 1fr);
+    padding: 20px;
+    border: 1px solid black;
+}
+
+#Description > #class {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+
+#Description > #class2 {
+    margin-top: 0px;
+    margin-right: 0px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-column: 2/2;
+}
+
+#Description #Button {
+    width: 150px;
+    height: 30px;
+}
+
+#Description #Button:hover {
+    background-color: rgb(14, 14, 14);
+    color: white;
+}
+
+img {
+    width: 300px;
+    height: 200px;
+}
+
+#msg1, #msg2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#But1, #But2, #But3 {
+    width: 250px;
+    height: 50px;
+    margin: 10px;
+}
+
+#But1:hover, #But2:hover, #But3:hover, #return2:hover{
+    background-color: rgb(87, 87, 87);
+    color: white;
+}
+
+#Table1 {
+    background-color: #fff;
+    border: 1px solid black
+}
+
+#return1 {
+    position: relative;
+    bottom: 50px;
+}
+#return2 {
+    width: 250px;
+    height: 50px;
+}
