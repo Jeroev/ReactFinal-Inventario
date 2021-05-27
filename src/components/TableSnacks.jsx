@@ -5,64 +5,64 @@ import {Table,Button,Container,Modal,ModalHeader,ModalBody,FormGroup,ModalFooter
 } from "reactstrap";
 
 const data = [
-  { id: 1, nombre: "Papas naturales", precio: "1000" , unidadesvendidas: "5", total: "5000"},
-  { id: 2, nombre: "Papas de pollo", precio: "1000" , unidadesvendidas: "6", total: "6000"},
-  { id: 3, nombre: "Papas de tomate", precio: "1200" , unidadesvendidas: "2", total: "2400"},
+  { id: 1, name: "Papas naturales", price: "1000" , unitsell: "5", total: "5000"},
+  { id: 2, name: "Papas de pollo", price: "1000" , unitsell: "6", total: "6000"},
+  { id: 3, name: "Papas de tomate", price: "1200" , unitsell: "2", total: "2400"},
 
 ];
 
 class App10 extends Component {
   state = {
     data: data,
-    modalActualizar: false,
-    modalInsertar: false,
+    modReload: false,
+    modInput: false,
     form: {
       id: "",
-      nombre: "",
-      precio: "",
-      unidadesvendidas: "",
+      name: "",
+      price: "",
+      unitsell: "",
       total: "",
     },
   };
 
-  mostrarModalActualizar = (dato) => {
+  showmodReload = (dato) => {
     this.setState({
       form: dato,
-      modalActualizar: true,
+      modReload: true,
     });
   };
 
-  cerrarModalActualizar = () => {
-    this.setState({ modalActualizar: false });
+  closemodReload = () => {
+    this.setState({ modReload: false });
   };
 
-  mostrarModalInsertar = () => {
+  showmodInput = () => {
     this.setState({
-      modalInsertar: true,
+      modInput: true,
     });
   };
 
-  cerrarModalInsertar = () => {
-    this.setState({ modalInsertar: false });
+  closemodInput = () => {
+    this.setState({ modInput: false });
   };
 
-  editar = (dato) => {
+  edit = (dato) => {
     var contador = 0;
     var arreglo = this.state.data;
     arreglo.map((registro) => {
       if (dato.id === registro.id) {
-        arreglo[contador].nombre = dato.nombre;
-        arreglo[contador].precio = dato.precio;
-        arreglo[contador].unidadesvendidas = dato.unidadesvendidas;
+        arreglo[contador].name = dato.name;
+        arreglo[contador].price = dato.price;
+        arreglo[contador].unitsell = dato.unitsell;
       }
       return (
       contador++
       )
     });
-    this.setState({ data: arreglo, modalActualizar: false });
+    this.setState({ data: arreglo, modReload: false });
   };
 
-  eliminar = (dato) => {
+  delete = (dato) => {
     var opcion = window.confirm("Estás Seguro que deseas Eliminar el valor "+dato.id);
     if (opcion === true) {
       var contador = 0;
@@ -75,7 +75,7 @@ class App10 extends Component {
         contador++
         )
       });
-      this.setState({ data: arreglo, modalActualizar: false });
+      this.setState({ data: arreglo, modReload: false });
     }
   };
 
@@ -84,7 +84,7 @@ class App10 extends Component {
     valorNuevo.id=this.state.data.length+1;
     var lista= this.state.data;
     lista.push(valorNuevo);
-    this.setState({ modalInsertar: false, data: lista });
+    this.setState({ modInput: false, data: lista });
   }
 
   handleChange = (e) => {
@@ -102,13 +102,13 @@ class App10 extends Component {
     return (
       <>
         <Container>
-        <section id="return1">
+          <section id="return1">
             <h2>Para regresar a ventas: </h2>
             <a href="/Sales"><button id="return2">Regresar</button></a>
-        </section>
-          <h2 className="title">Añadir Dato</h2>
-        <br />
-          <Button color="success" onClick={()=>this.mostrarModalInsertar()}>Insertar Nuevo dato</Button>
+          </section>
+            <h2 className="title">Añadir Dato</h2>
+          <br />
+          <Button color="success" onClick={()=>this.showmodInput()}>Insertar Nuevo dato</Button>
           <br />
           <br />
           <Table id="Table1">
@@ -127,18 +127,18 @@ class App10 extends Component {
               {this.state.data.map((dato) => (
                 <tr key={dato.id}>
                   <td>{dato.id}</td>
-                  <td>{dato.nombre}</td>
-                  <td>{dato.precio}</td>
-                  <td>{dato.unidadesvendidas}</td>
-                  <td>{dato.precio * dato.unidadesvendidas}</td>
+                  <td>{dato.name}</td>
+                  <td>{dato.price}</td>
+                  <td>{dato.unitsell}</td>
+                  <td>{dato.price * dato.unitsell}</td>
                   <td>
                     <Button
                       color="primary"
-                      onClick={() => this.mostrarModalActualizar(dato)}
+                      onClick={() => this.showmodReload(dato)}
                     >
                       Editar
                     </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminar(dato)}>Eliminar</Button>
+                    <Button color="danger" onClick={()=> this.delete(dato)}>delete</Button>
                   </td>
                 </tr>
               ))}
@@ -146,7 +146,7 @@ class App10 extends Component {
           </Table>
         </Container>
 
-        <Modal isOpen={this.state.modalActualizar}>
+        <Modal isOpen={this.state.modReload}>
           <ModalHeader>
            <div><h3>Editar dato</h3></div>
           </ModalHeader>
@@ -171,10 +171,10 @@ class App10 extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="name"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.nombre}
+                value={this.state.form.name}
               />
             </FormGroup>
 
@@ -184,10 +184,10 @@ class App10 extends Component {
               </label>
               <input
                 className="form-control"
-                name="precio"
+                name="price"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.precio}
+                value={this.state.form.price}
               />
             </FormGroup>
 
@@ -197,25 +197,24 @@ class App10 extends Component {
               </label>
               <input
                 className="form-control"
-                name="Unidades vendidas"
+                name="unitsell"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.unidadesvendidas}
+                value={this.state.form.unitsell}
               />
             </FormGroup>
-
           </ModalBody>
 
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.editar(this.state.form)}
+              onClick={() => this.edit(this.state.form)}
             >
               Editar
             </Button>
             <Button
               color="danger"
-              onClick={() => this.cerrarModalActualizar()}
+              onClick={() => this.closemodReload()}
             >
               Cancelar
             </Button>
@@ -224,7 +223,7 @@ class App10 extends Component {
 
 
 
-        <Modal isOpen={this.state.modalInsertar}>
+        <Modal isOpen={this.state.modInput}>
           <ModalHeader>
            <div><h3>Insertar dato</h3></div>
           </ModalHeader>
@@ -249,7 +248,7 @@ class App10 extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="name"
                 type="text"
                 onChange={this.handleChange}
               />
@@ -261,7 +260,7 @@ class App10 extends Component {
               </label>
               <input
                 className="form-control"
-                name="precio"
+                name="price"
                 type="number"
                 onChange={this.handleChange}
               />
@@ -272,12 +271,11 @@ class App10 extends Component {
               </label>
               <input
                 className="form-control"
-                name="unidades vendidas"
+                name="unitsell"
                 type="number"
                 onChange={this.handleChange}
               />
             </FormGroup>
-
           </ModalBody>
 
           <ModalFooter>
@@ -289,7 +287,7 @@ class App10 extends Component {
             </Button>
             <Button
               className="btn btn-danger"
-              onClick={() => this.cerrarModalInsertar()}
+              onClick={() => this.closemodInput()}
             >
               Cancelar
             </Button>

@@ -5,87 +5,87 @@ import {Table,Button,Container,Modal,ModalHeader,ModalBody,FormGroup,ModalFooter
 } from "reactstrap";
 
 const data = [
-  { id: 1, producto: "Yuca", precio: "100" , unidades: "5"},
-  { id: 2, producto: "Lechuga", precio: "200" , unidades: "4"},
-  { id: 3, producto: "Papa", precio: "500" , unidades: "12"},
-  { id: 4, producto: "Mango", precio: "600" , unidades: "5"},
-  { id: 5, producto: "Mecato", precio: "200" , unidades: "15"},
+  { id: 1, product: "Yuca", price: "100" , units: "5"},
+  { id: 2, product: "Lechuga", price: "200" , units: "4"},
+  { id: 3, product: "Papa", price: "500" , units: "12"},
+  { id: 4, product: "Mango", price: "600" , units: "5"},
+  { id: 5, product: "Mecato", price: "200" , units: "15"},
 
 ];
 
 class App6 extends Component {
   state = {
     data: data,
-    modalActualizar: false,
-    modalInsertar: false,
+    modReload: false,
+    modInput: false,
     form: {
       id: "",
-      producto: "",
-      precio: "",
-      unidades: "",
+      product: "",
+      price: "",
+      units: ""
     },
   };
 
-  mostrarModalActualizar = (dato) => {
+  showmodReload = (dato) => {
     this.setState({
       form: dato,
-      modalActualizar: true,
+      modReload: true,
     });
   };
 
-  cerrarModalActualizar = () => {
-    this.setState({ modalActualizar: false });
+  closemodReload = () => {
+    this.setState({ modReload: false });
   };
 
-  mostrarModalInsertar = () => {
+  showmodInput = () => {
     this.setState({
-      modalInsertar: true,
+      modInput: true,
     });
   };
 
-  cerrarModalInsertar = () => {
-    this.setState({ modalInsertar: false });
+  closemodInput = () => {
+    this.setState({ modInput: false });
   };
 
-  editar = (dato) => {
-    var contador = 0;
-    var arreglo = this.state.data;
-    arreglo.map((registro) => {
-      if (dato.id === registro.id) {
-        arreglo[contador].producto = dato.producto;
-        arreglo[contador].precio = dato.precio;
-        arreglo[contador].unidades = dato.unidades;
+  edit = (dato) => {
+    var count = 0;
+    var array = this.state.data;
+    array.map((register) => {
+      if (dato.id === register.id) {
+        array[count].product = dato.product;
+        array[count].price = dato.price;
+        array[count].units = dato.units;
       }
       return (
-      contador++
+      count++
       )
     });
-    this.setState({ data: arreglo, modalActualizar: false });
+    this.setState({ data: array, modReload: false });
   };
 
-  eliminar = (dato) => {
-    var opcion = window.confirm("Estás Seguro que deseas Eliminar el producto "+dato.id);
-    if (opcion === true) {
-      var contador = 0;
-      var arreglo = this.state.data;
-      arreglo.map((registro) => {
-        if (dato.id === registro.id) {
-          arreglo.splice(contador, 1);
+  delete = (dato) => {
+    var option = window.confirm("Estás Seguro que deseas Eliminar el category "+dato.id);
+    if (option === true) {
+      var count = 0;
+      var array = this.state.data;
+      array.map((register) => {
+        if (dato.id === register.id) {
+          array.splice(count, 1);
         }
         return (
-        contador++
+        count++
         )
       });
-      this.setState({ data: arreglo, modalActualizar: false });
+      this.setState({ data: array, modReload: false });
     }
   };
 
-  insertar= ()=>{
-    var valorNuevo= {...this.state.form};
-    valorNuevo.id=this.state.data.length+1;
-    var lista= this.state.data;
-    lista.push(valorNuevo);
-    this.setState({ modalInsertar: false, data: lista });
+  input= ()=>{
+    var newValue= {...this.state.form};
+    newValue.id=this.state.data.length+1;
+    var list= this.state.data;
+    list.push(newValue);
+    this.setState({ modInput: false, data: list });
   }
 
   handleChange = (e) => {
@@ -104,7 +104,7 @@ class App6 extends Component {
         <Container>
           <h1 className="title">Añadir Producto</h1>
         <br />
-          <Button color="success" onClick={()=>this.mostrarModalInsertar()}>Insertar Nuevo Producto</Button>
+          <Button color="success" onClick={()=>this.showmodInput()}>Insertar Nuevo Producto</Button>
           <br />
           <br />
           <Table id="Table1">
@@ -122,17 +122,17 @@ class App6 extends Component {
               {this.state.data.map((dato) => (
                 <tr key={dato.id}>
                   <td>{dato.id}</td>
-                  <td>{dato.producto}</td>
-                  <td>{dato.precio}</td>
-                  <td>{dato.unidades}</td>
+                  <td>{dato.product}</td>
+                  <td>{dato.price}</td>
+                  <td>{dato.units}</td>
                   <td>
                     <Button
                       color="primary"
-                      onClick={() => this.mostrarModalActualizar(dato)}
+                      onClick={() => this.showmodReload(dato)}
                     >
                       Editar
                     </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminar(dato)}>Eliminar</Button>
+                    <Button color="danger" onClick={()=> this.delete(dato)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -140,7 +140,7 @@ class App6 extends Component {
           </Table>
         </Container>
 
-        <Modal isOpen={this.state.modalActualizar}>
+        <Modal isOpen={this.state.modReload}>
           <ModalHeader>
            <div><h3>Editar Producto</h3></div>
           </ModalHeader>
@@ -161,40 +161,39 @@ class App6 extends Component {
 
             <FormGroup>
               <label>
-                producto:
+                Producto:
               </label>
               <input
                 className="form-control"
-                name="producto"
+                name="product"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.producto}
+                value={this.state.form.product}
               />
             </FormGroup>
 
             <FormGroup>
               <label>
-                precio:
+                Precio:
               </label>
               <input
                 className="form-control"
-                name="precio"
+                name="price"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.precio}
+                value={this.state.form.price}
               />
             </FormGroup>
-
             <FormGroup>
               <label>
-                unidades:
+                Unidades:
               </label>
               <input
                 className="form-control"
-                name="unidades"
+                name="units"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.unidades}
+                value={this.state.form.units}
               />
             </FormGroup>
           </ModalBody>
@@ -202,13 +201,13 @@ class App6 extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.editar(this.state.form)}
+              onClick={() => this.edit(this.state.form)}
             >
               Editar
             </Button>
             <Button
               color="danger"
-              onClick={() => this.cerrarModalActualizar()}
+              onClick={() => this.closemodReload()}
             >
               Cancelar
             </Button>
@@ -217,9 +216,9 @@ class App6 extends Component {
 
 
 
-        <Modal isOpen={this.state.modalInsertar}>
+        <Modal isOpen={this.state.modInput}>
           <ModalHeader>
-           <div><h3>Insertar producto</h3></div>
+           <div><h3>Insertar productos</h3></div>
           </ModalHeader>
 
           <ModalBody>
@@ -242,7 +241,7 @@ class App6 extends Component {
               </label>
               <input
                 className="form-control"
-                name="producto"
+                name="product"
                 type="text"
                 onChange={this.handleChange}
               />
@@ -254,7 +253,7 @@ class App6 extends Component {
               </label>
               <input
                 className="form-control"
-                name="precio"
+                name="price"
                 type="number"
                 onChange={this.handleChange}
               />
@@ -265,7 +264,7 @@ class App6 extends Component {
               </label>
               <input
                 className="form-control"
-                name="unidades"
+                name="units"
                 type="number"
                 onChange={this.handleChange}
               />
@@ -275,13 +274,13 @@ class App6 extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.insertar()}
+              onClick={() => this.input()}
             >
               Insertar
             </Button>
             <Button
               className="btn btn-danger"
-              onClick={() => this.cerrarModalInsertar()}
+              onClick={() => this.closemodInput()}
             >
               Cancelar
             </Button>

@@ -5,83 +5,83 @@ import {Table,Button,Container,Modal,ModalHeader,ModalBody,FormGroup,ModalFooter
 } from "reactstrap";
 
 const data = [
-  { id: 1, categoria: "Verduras", articulos: "3" },
-  { id: 2, categoria: "Frutas", articulos: "1" },
-  { id: 3, categoria: "Mecato", articulos: "1" },
+  { id: 1, category: "Verduras", article: "3" },
+  { id: 2, category: "Frutas", article: "1" },
+  { id: 3, category: "Mecato", article: "1" },
 
 ];
 
 class App7 extends Component {
   state = {
     data: data,
-    modalActualizar: false,
-    modalInsertar: false,
+    modReload: false,
+    modInput: false,
     form: {
       id: "",
-      categoria: "",
-      articulos: "",
+      category: "",
+      article: "",
     },
   };
 
-  mostrarModalActualizar = (dato) => {
+  showmodReload = (dato) => {
     this.setState({
       form: dato,
-      modalActualizar: true,
+      modReload: true,
     });
   };
 
-  cerrarModalActualizar = () => {
-    this.setState({ modalActualizar: false });
+  closemodReload = () => {
+    this.setState({ modReload: false });
   };
 
-  mostrarModalInsertar = () => {
+  showmodInput = () => {
     this.setState({
-      modalInsertar: true,
+      modInput: true,
     });
   };
 
-  cerrarModalInsertar = () => {
-    this.setState({ modalInsertar: false });
+  closemodInput = () => {
+    this.setState({ modInput: false });
   };
 
-  editar = (dato) => {
-    var contador = 0;
-    var arreglo = this.state.data;
-    arreglo.map((registro) => {
-      if (dato.id === registro.id) {
-        arreglo[contador].categoria = dato.categoria;
-        arreglo[contador].articulos = dato.articulos;
+  edit = (dato) => {
+    var count = 0;
+    var array = this.state.data;
+    array.map((register) => {
+      if (dato.id === register.id) {
+        array[count].category = dato.category;
+        array[count].article = dato.article;
       }
       return (
-      contador++
+      count++
       )
     });
-    this.setState({ data: arreglo, modalActualizar: false });
+    this.setState({ data: array, modReload: false });
   };
 
-  eliminar = (dato) => {
-    var opcion = window.confirm("Estás Seguro que deseas Eliminar el categoria "+dato.id);
-    if (opcion === true) {
-      var contador = 0;
-      var arreglo = this.state.data;
-      arreglo.map((registro) => {
-        if (dato.id === registro.id) {
-          arreglo.splice(contador, 1);
+  delete = (dato) => {
+    var option = window.confirm("Estás Seguro que deseas Eliminar el category "+dato.id);
+    if (option === true) {
+      var count = 0;
+      var array = this.state.data;
+      array.map((register) => {
+        if (dato.id === register.id) {
+          array.splice(count, 1);
         }
         return (
-        contador++
+        count++
         )
       });
-      this.setState({ data: arreglo, modalActualizar: false });
+      this.setState({ data: array, modReload: false });
     }
   };
 
-  insertar= ()=>{
-    var valorNuevo= {...this.state.form};
-    valorNuevo.id=this.state.data.length+1;
-    var lista= this.state.data;
-    lista.push(valorNuevo);
-    this.setState({ modalInsertar: false, data: lista });
+  input= ()=>{
+    var newValue= {...this.state.form};
+    newValue.id=this.state.data.length+1;
+    var list= this.state.data;
+    list.push(newValue);
+    this.setState({ modInput: false, data: list });
   }
 
   handleChange = (e) => {
@@ -100,7 +100,7 @@ class App7 extends Component {
         <Container>
           <h1 className="title">Añadir Categoria</h1>
         <br />
-          <Button color="success" onClick={()=>this.mostrarModalInsertar()}>Insertar Nueva categoria</Button>
+          <Button color="success" onClick={()=>this.showmodInput()}>Insertar Nueva categoria</Button>
           <br />
           <br />
           <Table id="Table1">
@@ -117,16 +117,16 @@ class App7 extends Component {
               {this.state.data.map((dato) => (
                 <tr key={dato.id}>
                   <td>{dato.id}</td>
-                  <td>{dato.categoria}</td>
-                  <td>{dato.articulos}</td>
+                  <td>{dato.category}</td>
+                  <td>{dato.article}</td>
                   <td>
                     <Button
                       color="primary"
-                      onClick={() => this.mostrarModalActualizar(dato)}
+                      onClick={() => this.showmodReload(dato)}
                     >
                       Editar
                     </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminar(dato)}>Eliminar</Button>
+                    <Button color="danger" onClick={()=> this.delete(dato)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -134,7 +134,7 @@ class App7 extends Component {
           </Table>
         </Container>
 
-        <Modal isOpen={this.state.modalActualizar}>
+        <Modal isOpen={this.state.modReload}>
           <ModalHeader>
            <div><h3>Editar Categoria</h3></div>
           </ModalHeader>
@@ -159,10 +159,10 @@ class App7 extends Component {
               </label>
               <input
                 className="form-control"
-                name="categoria"
+                name="category"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.categoria}
+                value={this.state.form.category}
               />
             </FormGroup>
 
@@ -172,10 +172,10 @@ class App7 extends Component {
               </label>
               <input
                 className="form-control"
-                name="articulos"
+                name="article"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.articulos}
+                value={this.state.form.article}
               />
             </FormGroup>
           </ModalBody>
@@ -183,13 +183,13 @@ class App7 extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.editar(this.state.form)}
+              onClick={() => this.edit(this.state.form)}
             >
               Editar
             </Button>
             <Button
               color="danger"
-              onClick={() => this.cerrarModalActualizar()}
+              onClick={() => this.closemodReload()}
             >
               Cancelar
             </Button>
@@ -198,7 +198,7 @@ class App7 extends Component {
 
 
 
-        <Modal isOpen={this.state.modalInsertar}>
+        <Modal isOpen={this.state.modInput}>
           <ModalHeader>
            <div><h3>Insertar categoria</h3></div>
           </ModalHeader>
@@ -223,7 +223,7 @@ class App7 extends Component {
               </label>
               <input
                 className="form-control"
-                name="categoria"
+                name="category"
                 type="text"
                 onChange={this.handleChange}
               />
@@ -235,7 +235,7 @@ class App7 extends Component {
               </label>
               <input
                 className="form-control"
-                name="articulos"
+                name="article"
                 type="number"
                 onChange={this.handleChange}
               />
@@ -245,13 +245,13 @@ class App7 extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.insertar()}
+              onClick={() => this.input()}
             >
               Insertar
             </Button>
             <Button
               className="btn btn-danger"
-              onClick={() => this.cerrarModalInsertar()}
+              onClick={() => this.closemodInput()}
             >
               Cancelar
             </Button>
